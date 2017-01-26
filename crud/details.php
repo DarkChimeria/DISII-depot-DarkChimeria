@@ -20,15 +20,11 @@ $id = $row['id_auteur'];
                     $id = $_POST['aid'];
                     $sql = "UPDATE auteur SET nom=?,prenom=?,date_naissance=? WHERE id_auteur=?";
                     $idRequete = executeR($connexion,$sql,array($name,$firstname,$birthday,$id));
-                    
                     Header( 'Location: listeAuteur.php?success=1' );
-                    
                 }
-
                 ?>
            <?php include 'include/header.php' ?>
            <body>
-
            	<div class="container-fluid">
            		<div class="row">
            			<div class="col-md-12">

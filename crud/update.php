@@ -14,19 +14,24 @@ $id = $row['id_auteur'];
 ?>
 
 <?php
- if (isset($_POST['uvalider'])){
-                	$name = $_POST['aname'];
-                    $firstname = $_POST['afirstname']; 
-                    $birthday = $_POST['abirth'];
-                    $id = $_POST['aid'];
-                    $sql = "UPDATE auteur SET nom=?,prenom=?,date_naissance=? WHERE id_auteur=?";
-                    $idRequete = executeR($connexion,$sql,array($name,$firstname,$birthday,$id));
-                    
-                    Header( 'Location: listeAuteur.php?success=1' );
-                    
-                }
+if (isset($_POST['uvalider']) && $name == $_POST['aname'] && $firstname == $_POST['afirstname'] && $birthday == $_POST['abirth']){
 
-                ?>
+$msg = "<div class='alert alert-warning'><button class='close' data-dismiss='alert'>&times;</button><strong>Abruti !</strong>  Tu n'as rien modifié gros con !</div>";
+
+}else{
+
+	if (isset($_POST['uvalider'])){
+		$aname = $_POST['aname'];
+		$afirstname = $_POST['afirstname']; 
+		$abirthday = $_POST['abirth'];
+		$aid = $_POST['aid'];
+		$sql = "UPDATE auteur SET nom=?,prenom=?,date_naissance=? WHERE id_auteur=?";
+		$idRequete = executeR($connexion,$sql,array($aname,$afirstname,$abirthday,$aid));
+		Header( 'Location: listeAuteur.php?success=1' );
+	}
+}
+
+?>
 
 
 
@@ -43,6 +48,12 @@ $id = $row['id_auteur'];
 			<div class="container-fluid">
 			<div class="row">
         <div class="col-md-6">
+        	<?php
+        	if ( isset($msg)){
+     // treat the succes case ex:
+        		echo $msg;
+        	}
+        	?>
 <!-- FORMULAIRE -->
 			<form role="form" method="post">
 					<input class="form-control" id="exampleInputEmail1" type="text" name="aid"  value="<?php echo $id ?>" readonly>
